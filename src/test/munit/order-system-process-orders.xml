@@ -5,8 +5,10 @@ http://www.springframework.org/schema/beans http://www.springframework.org/schem
 http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
     <munit:config name="munit" doc:name="MUnit configuration"/>
     <spring:beans>
+        <spring:import resource="classpath:global.xml"/>
         <spring:import resource="classpath:order-system.xml"/>
     </spring:beans>
+    
     <munit:before-test name="setOrdersMessageBefore_Test" description="Before tests actions">
         <munit:set payload="#[[{'orderID':444, 'location':'international','price':14.01}, {'orderID':444, 'location':'international','price':14.01}, {'orderID':555, 'location':'domestic','price':14.01}]]" doc:name="Set Message"/>
     </munit:before-test>

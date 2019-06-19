@@ -9,13 +9,14 @@ http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/m
 http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee/dw/current/dw.xsd
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
 http://www.mulesoft.org/schema/mule/ws http://www.mulesoft.org/schema/mule/ws/current/mule-ws.xsd">
-    <http:listener-config name="HTTP_Listener_Configuration" host="0.0.0.0" port="8081" doc:name="HTTP Listener Configuration"/>
-    <ws:consumer-config name="orderService_Web_Service_Consumer" wsdlLocation="orders.wsdl" service="OrderServiceService" port="OrderServicePort" serviceAddress="http://training-u.cloudhub.io/advanced/orders" doc:name="Web Service Consumer"/>
+
+    
     <flow name="main">
         <http:listener config-ref="HTTP_Listener_Configuration" path="/orders" doc:name="HTTP"/>
         <flow-ref name="retrieveOrders" doc:name="retrieveOrders"/>
         <flow-ref name="processOrders" doc:name="processOrders"/>
     </flow>
+    
     <sub-flow name="retrieveOrders">
         <set-variable variableName="dateRange" value="#[message.inboundProperties.'http.query.params'.range]" doc:name="Set dateRange"/>
         <dw:transform-message doc:name="Transform Message">
